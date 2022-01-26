@@ -178,10 +178,16 @@ class OAPOffers extends LitElement
     }
     `;
 
+    constructor()
+    {
+        super();
+        this.fetchData();
+    }
+
     @property()
     private data;
-    @property()
-    private items;
+    @property({type: Array})
+    private items: any[] = [];
 
     fetchData()
     {
@@ -191,11 +197,13 @@ class OAPOffers extends LitElement
                 this.data = data;
                 this.items = this.data.items;
             })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render()
     {   
-        this.fetchData();
         return html`
             ${this.items.map(element => html
                 `
